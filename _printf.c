@@ -1,5 +1,6 @@
 #include "main.h"
 int print_str(const char *str);
+int print_int(int j);
 int len_str(const char *str);
 int _printf(const char *format, ...);
 /**
@@ -10,6 +11,18 @@ int _printf(const char *format, ...);
 int print_char(char char_index)
 {
 return (write(1, &char_index, 1));
+}
+/**
+*print_int - Print integers.
+*@j: Integer being printed.
+*Return: All characters printed.
+*/
+int print_int(int j)
+{
+char char_str[12];
+
+snprintf(char_str, sizeof(char_str), "%d", j);
+return (print_str(char_str));
 }
 
 /**
@@ -46,6 +59,7 @@ return (write(1, str, len_str(str)));
 int _printf(const char *format, ...)
 {
 int times;
+int int_index;
 char char_index;
 char *str;
 va_list arg_p;
@@ -64,6 +78,11 @@ str = va_arg(arg_p, char *);
 if (str == NULL)
 str = "(null)";
 times += print_str(str);
+break;
+case 'i':
+case 'd':
+int_index = va_arg(arg_p, int);
+times += print_int(int_index);
 break;
 case 'c':
 char_index = va_arg(arg_p, int);
