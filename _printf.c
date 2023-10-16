@@ -61,6 +61,8 @@ switch (*format)
 {
 case 's':
 str = va_arg(arg_p, char *);
+if (str == NULL)
+str = "(null)";
 times += print_str(str);
 break;
 case 'c':
