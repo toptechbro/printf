@@ -171,7 +171,7 @@ times = 0;
 va_start(arg_p, format);
 while (*format)
 {
-if (*format == '%')
+if (format[0] == '%')
 {
 format++;
 switch (*format)
