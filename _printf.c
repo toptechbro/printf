@@ -1,6 +1,7 @@
 #include "main.h"
 int print_str(const char *str);
 int print_int(int j);
+int print_add(void *address);
 int len_str(const char *str);
 int _printf(const char *format, ...);
 /**
@@ -11,6 +12,19 @@ int _printf(const char *format, ...);
 int print_char(char char_index)
 {
 return (write(1, &char_index, 1));
+}
+
+/**
+*print_add - This prints address.
+*@address: Points to memory address.
+*Return: All characters printed.
+*/
+int print_add(void *address)
+{
+char address_str[20];
+
+snprintf(address_str, sizeof(address_str), "%p", address);
+return(print_str(address_str));
 }
 /**
 *print_int - Print integers.
@@ -62,6 +76,7 @@ int times;
 int int_index;
 char char_index;
 char *str;
+void *add_index;
 va_list arg_p;
 
 times = 0;
@@ -87,6 +102,10 @@ break;
 case 'c':
 char_index = va_arg(arg_p, int);
 times += print_char(char_index);
+break;
+case 'p':
+add_index = va_arg(arg_p, void *);
+times += print_add(add_index);
 break;
 case '%':
 times += print_char('%');
