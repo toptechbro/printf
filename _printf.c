@@ -41,6 +41,7 @@ num--;
 *num = (bin_num & 1) + '0';
 bin_num >>= 1;
 count++;
+
 }
 return (count + print_str(num));
 }
