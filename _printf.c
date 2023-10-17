@@ -6,6 +6,7 @@ int print_oct(unsigned int index);
 int print_dec(unsigned int num);
 int print_hex1(unsigned int num);
 int print_hex2(unsigned int num);
+int print_bin(unsigned int bin_num);
 int len_str(const char *str);
 int _printf(const char *format, ...);
 /**
@@ -16,6 +17,32 @@ int _printf(const char *format, ...);
 int print_char(char char_index)
 {
 return (write(1, &char_index, 1));
+}
+/**
+*print - Prints the binary.
+*@bin_num: Number to be printed.
+*Return: All characters printed.
+*/
+int print_bin(unsigned int bin_num)
+{
+char buffer_output[33];
+char *num = buffer_output + 32;
+int count;
+
+count = 0;
+num[0] = '\0';
+while (1)
+{
+if (bin_num == 0)
+{
+break;
+}
+num--;
+
+*num = (bin_num & 1) + '0';
+bin_num >>= 1;
+}
+return (count + print_str(num));
 }
 
 /**
@@ -134,6 +161,7 @@ unsigned int oct_index;
 unsigned int dec_num;
 unsigned int lower_hex;
 unsigned int upper_hex;
+unsigned int bin_num;
 char char_index;
 char *str;
 void *add_index;
@@ -153,6 +181,10 @@ str = va_arg(arg_p, char *);
 if (str == NULL)
 str = "(null)";
 times += print_str(str);
+break;
+case 'b':
+bin_num = va_arg(arg_p, unsigned int);
+times += print_bin(bin_num);
 break;
 case 'o':
 oct_index = va_arg(arg_p, unsigned int);
