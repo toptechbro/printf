@@ -19,7 +19,7 @@ int print_char(char char_index)
 return (write(1, &char_index, 1));
 }
 /**
-*print - Prints the binary.
+*print_bin - Prints the binary.
 *@bin_num: Number to be printed.
 *Return: All characters printed.
 */
@@ -42,8 +42,7 @@ num--;
 bin_num >>= 1;
 
 }
-count += print_str(num);
-return (count);
+return (count + print_str(num));
 }
 
 /**
