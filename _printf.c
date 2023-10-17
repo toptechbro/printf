@@ -2,6 +2,10 @@
 int print_str(const char *str);
 int print_int(int j);
 int print_add(void *address);
+int print_oct(unsigned int index);
+int print_dec(unsigned int num);
+int print_hex1(unsigned int num);
+int print_hex2(unsigned int num);
 int len_str(const char *str);
 int _printf(const char *format, ...);
 /**
@@ -12,6 +16,58 @@ int _printf(const char *format, ...);
 int print_char(char char_index)
 {
 return (write(1, &char_index, 1));
+}
+
+/**
+*print_dec - Prints unsigned decimal.
+*@num: The number printed.
+*Return: All characters printed.
+*/
+int print_dec(unsigned int num)
+{
+char buffer_output[12];
+
+snprintf(buffer_output, sizeof(buffer_output), "%u", num);
+return (print_str(buffer_output));
+}
+
+/**
+*print_oct - Prints octal number.
+*@index: The index printed.
+*Return: All characters printed.
+*/
+int print_oct(unsigned int index)
+{
+char buffer_output[12];
+
+snprintf(buffer_output, sizeof(buffer_output), "%o", index);
+return (print_str(buffer_output));
+}
+
+/**
+*print_hex1 - Print hexadecimal in lowers.
+*@num: The number printed.
+*Return: All characters printed.
+*/
+int print_hex1(unsigned int num)
+{
+char buffer_output[9];
+
+snprintf(buffer_output, sizeof(buffer_output), "%x", num);
+return (print_str(buffer_output));
+}
+
+/**
+*print_hex2 - Prints hexadecimal in uppercase.
+*@num: The number printed.
+*Return: All characters printed.
+*/
+int print_hex2(unsigned int num)
+{
+char buffer_output[9];
+
+snprintf(buffer_output, sizeof(buffer_output), "%X", num);
+return (print_str(buffer_output));
 }
 
 /**
@@ -74,6 +130,10 @@ int _printf(const char *format, ...)
 {
 int times;
 int int_index;
+unsigned int oct_index;
+unsigned int dec_num;
+unsigned int lower_hex;
+unsigned int upper_hex;
 char char_index;
 char *str;
 void *add_index;
@@ -94,10 +154,26 @@ if (str == NULL)
 str = "(null)";
 times += print_str(str);
 break;
+case 'o':
+oct_index = va_arg(arg_p, unsigned int);
+times += print_oct(oct_index);
+break;
 case 'i':
 case 'd':
 int_index = va_arg(arg_p, int);
 times += print_int(int_index);
+break;
+case 'x':
+lower_hex = va_arg(arg_p, unsigned int);
+times += print_hex1(lower_hex);
+break;
+case 'X':
+upper_hex = va_arg(arg_p, unsigned int);
+times += print_hex2(upper_hex);
+break;
+case 'u':
+dec_num = va_arg(arg_p, unsigned int);
+times += print_dec(dec_num);
 break;
 case 'c':
 char_index = va_arg(arg_p, int);
