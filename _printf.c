@@ -42,7 +42,8 @@ num--;
 bin_num >>= 1;
 
 }
-return (count + print_str(num));
+count += print_str(num);
+return (count);
 }
 
 /**
