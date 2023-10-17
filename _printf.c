@@ -25,12 +25,11 @@ return (write(1, &char_index, 1));
 */
 int print_bin(unsigned int bin_num)
 {
+int count = 0;
 char buffer_output[33];
 char *num = buffer_output + 32;
-*num[] = '0';
-int count;
 
-count = 0;
+*num = '\0';
 while (1)
 {
 if (bin_num == 0)
