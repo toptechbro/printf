@@ -29,7 +29,7 @@ int count = 0;
 char buffer_output[33];
 char *num = buffer_output + 32;
 
-*num = '\0';
+num[0] = '\0';
 while (1)
 {
 if (bin_num == 0)
