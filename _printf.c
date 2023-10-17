@@ -80,7 +80,7 @@ int print_add(void *address)
 char address_str[20];
 
 snprintf(address_str, sizeof(address_str), "%p", address);
-return(print_str(address_str));
+return (print_str(address_str));
 }
 /**
 *print_int - Print integers.
