@@ -27,7 +27,7 @@ int print_bin(unsigned int bin_num)
 {
 int count = 0;
 char buffer_output[33];
-char *num = buffer_output + 31;
+char *num = buffer_output + 32;
 
 num[0] = '\0';
 while (1)
@@ -40,7 +40,6 @@ num--;
 
 *num = (bin_num & 1) + '0';
 bin_num >>= 1;
-count++;
 
 }
 return (count + print_str(num));
