@@ -167,8 +167,15 @@ char *str;
 void *add_index;
 va_list arg_p;
 
+/*This statement handles error*/
+if (format == NULL)
+{
+return (-1);
+}
 times = 0;
 va_start(arg_p, format);
+
+/*This where my argument list begins*/
 while (*format)
 {
 if (format[0] == '%')
@@ -229,6 +236,8 @@ times += print_char(*format);
 }
 format++;
 }
+
+/*Closure of the argument list*/
 va_end(arg_p);
 return (times);
 }
