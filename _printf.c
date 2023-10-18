@@ -178,9 +178,15 @@ va_start(arg_p, format);
 /*This where my argument list begins*/
 while (*format)
 {
-if (format[0] == '%')
-{
-format++;
+	if (format[0] == '%')
+	{
+	format++;
+	if (format[0] == '\0')
+	{
+		times += print_char('%');
+	continue;
+	}
+
 switch (*format)
 {
 case 's':
