@@ -237,9 +237,9 @@ times += print_char(*format);
 }
 }
 else
-{
-times += print_char(*format);
-}
+	{
+		times += print_char(*format);
+	}
 format++;
 }
 
