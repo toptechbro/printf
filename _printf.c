@@ -1,66 +1,86 @@
 #include "main.h"
-
-void print_buffer(char buffer[], int *buff_ind);
-
+int print_str(const char *str);
+int len_str(const char *str);
+int _printf(const char *format, ...);
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
- */
-int _printf(const char *format, ...)
+*print_char - Prints character to standard output.
+*@char_index: Working character.
+*Return: Integer.
+*/
+int print_char(char char_index)
 {
-	int i, printed = 0, printed_chars = 0;
-	int flags, width, precision, size, buff_ind = 0;
-	va_list list;
-	char buffer[BUFF_SIZE];
-
-	if (format == NULL)
-		return (-1);
-
-	va_start(list, format);
-
-	for (i = 0; format && format[i] != '\0'; i++)
-	{
-		if (format[i] != '%')
-		{
-			buffer[buff_ind++] = format[i];
-			if (buff_ind == BUFF_SIZE)
-				print_buffer(buffer, &buff_ind);
-			/* write(1, &format[i], 1);*/
-			printed_chars++;
-		}
-		else
-		{
-			print_buffer(buffer, &buff_ind);
-			flags = get_flags(format, &i);
-			width = get_width(format, &i, list);
-			precision = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			printed = handle_print(format, &i, list, buffer,
-				flags, width, precision, size);
-			if (printed == -1)
-				return (-1);
-			printed_chars += printed;
-		}
-	}
-
-	print_buffer(buffer, &buff_ind);
-
-	va_end(list);
-
-	return (printed_chars);
+return (write(1, &char_index, 1));
 }
 
 /**
- * print_buffer - Prints the contents of the buffer if it exist
- * @buffer: Array of chars
- * @buff_ind: Index at which to add next char, represents the length.
- */
-void print_buffer(char buffer[], int *buff_ind)
+*len_str - Takes length of string.
+*@str: Working string.
+*Return: Size of the string.
+*/
+int len_str(const char *str)
 {
-	if (*buff_ind > 0)
-		write(1, &buffer[0], *buff_ind);
+int size;
 
-	*buff_ind = 0;
+for (size = 0; str[size] != '\0'; size++)
+{
+/* This does not print anything*/
+}
+return (size);
+}
+
+/**
+*print_str - Prints string to standard output.
+*@str: This is my working string.
+*Return: All characters.
+*/
+int print_str(const char *str)
+{
+return (write(1, str, len_str(str)));
+}
+
+/**
+*_printf - Custom printf.
+*@format: This is my format string.
+*Return: Integer.
+*/
+int _printf(const char *format, ...)
+{
+int times;
+char char_index;
+char *str;
+va_list arg_p;
+
+times = 0;
+va_start(arg_p, format);
+while (*format)
+{
+if (*format == '%')
+{
+format++;
+switch (*format)
+{
+case 's':
+str = va_arg(arg_p, char *);
+times += print_str(str);
+break;
+case 'c':
+char_index = va_arg(arg_p, int);
+times += print_char(char_index);
+break;
+case '%':
+times += print_char('%');
+break;
+default:
+times += print_char('%');
+times += print_char(*format);
+}
+}
+else
+{
+times += print_char(*format);
+}
+format++;
+}
+va_end(arg_p);
+return (times);
 }
